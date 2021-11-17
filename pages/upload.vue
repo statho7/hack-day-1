@@ -1,13 +1,14 @@
 <template>
   <div id="preview">
   <input type="file" accept="image/*" @change="handleImage" id="file-input">
-  <input id = "filename" type="text" placeholder="Filename" >
-  <button type="submit" @click="submit"> Upload Image </button>
-  <!--<img v-if="item.imageUrl" :src="item.imageUrl" /> -->
+
+  <button type="submit" @click="uploadImage"> Upload Image </button>
   </div>
 </template>
 
 <script>
+
+import axios from 'axios';
 export default {
   name:'imageUpload',
   data(){
@@ -18,30 +19,29 @@ export default {
   methods:{
     handleImage(e){
       const submittedImage = e.target.files[0];
-      this.encodeImage(submittedImage);
+      this.encodeImage(submittedImage, submittedImage.name);
     },
-    encodeImage(fileObject){
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.image=e.target.result;
-    };
-    reader.readAsDataURL(fileObject)
-    console.log(reader.result)
-    console.log('ssdjsdbsadbosaddsdhbsds')
+    encodeImage(fileObject, fileName){
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.image=e.target.result;
+        };
+      reader.readAsDataURL(fileObject);
+      console.log(reader.result);
+      this.uploadImage(fileName,reader.result);
     },
-
-  },
-    uploadImage(filename,encodedString){
+    uploadImage(fileName,encodeImage){
     axios({
       method: 'post',
-      url: 'https://ck7f3w6408.execute-api.eu-west-1.amazonaws.com/IL/teams/nintendo/files/{fileName}',
-      data: {encodedString}
+      url: `https://ck7f3w6408.execute-api.eu-west-1.amazonaws.com/IL/teams/nintendo/files/${fileName.slice(0,-4)}`,
+      data: {encodeImage}
 
 }).then(({ data }) => (this.apiResponse = "Sucessfully uploaded to server"))
       .catch(
         () => (this.apiResponse = 'Failed to upload data to server.')
       )
+      console.log(`https://ck7f3w6408.execute-api.eu-west-1.amazonaws.com/IL/teams/nintendo/files/${fileName.slice(0,-4)}`)
   }
 }
-
+}
 </script>
