@@ -27,7 +27,6 @@
     "eslint-plugin-prettier": "latest",
     "node-sass": "^6.0.1",
     "prettier": "latest",
-    "sass-loader": "latest",
-    "webpack": "^4.46.0"
+    "sass-loader": "latest"
   }
 }
