@@ -3,8 +3,9 @@
     <div class="header-container">
       <h2 class="header-title">{{ title }}</h2>
       <div class="nav">
-        <nuxt-link to="/">Home</nuxt-link>
-        <nuxt-link to="/about">About</nuxt-link>
+        <nuxt-link to="/"><span>Home</span></nuxt-link>
+        <nuxt-link to="/about"><span>About</span></nuxt-link>
+        <nuxt-link to="/upload"><span>Upload</span></nuxt-link>
       </div>
     </div>
     <hr class="header-divider" />
@@ -46,12 +47,39 @@ a {
   font-weight: bold;
   color: #2c3e50;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.nuxt-link-exact-active {
+a span {
+  font-size: 15px;
+  letter-spacing: 1.42px;
+  position: relative;
+  margin-left: 1.5px;
+}
+
+a span:after {
+  content: "";
+  height: 2px;
+  background: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  opacity: 0;
+  transform-origin: left center;
+  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+  transform: scaleX(0);
+
+}
+a:hover span:after{
+transform: scaleX(1);
+opacity:1;
+}
+
+/* .nuxt-link-exact-active {
   color: $bjss-house-colour;
   text-decoration: underline;
-}
+} */
 
 .header-divider {
   border: none;

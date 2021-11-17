@@ -6,7 +6,15 @@
       title="Welcome to the BJSS Academy!"
       message="This is a simple Vue app demonstrating components, routing and API calls."
     />
-    <div class="tiles">
+    <!-- <div class="tiles">
+      <DisplayImages
+        v-for="tile in tiles"
+        :key="tile + '-tile'"
+        :image="tile"
+        class="tile"
+      />
+    </div> -->
+    <!-- <div class="tiles">
       <ContentTile
         v-for="tile in tiles"
         :key="tile.title + '-tile'"
@@ -14,7 +22,15 @@
         :text="tile.text"
         class="tile"
       />
-    </div>
+    </div>-->
+    <div class="tiles">
+      <ContentTile
+        v-for="tile in tiles.data"
+        :key="tile.slice(57,10) + '-tile'"
+        :image="tile"
+        class="tile"
+      />
+    </div> 
     <br />
     <div v-if="apiResponse">Server response: {{ apiResponse }}</div>
   </div>
@@ -35,27 +51,7 @@ export default {
   data() {
     return {
       bannerImage: academyImage,
-      tiles: [
-        {
-          title: 'A tile Bruno',
-          text: 'This is a reusable component.',
-        },
-        {
-          title: 'Another tile',
-          text:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla purus eget nibh venenatis.',
-        },
-        {
-          title: 'A third tile',
-          text:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus, nibh id faucibus egestas.',
-        },
-        {
-          title: 'A fourth tile',
-          text:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus, nibh id faucibus egestas.',
-        },
-      ],
+      tiles: [],
       apiResponse: '',
     }
   },
@@ -64,8 +60,12 @@ export default {
   },
   methods: {
     fetchGreeting() {
-      apiGet('/hello-world')
-        .then(({ data }) => (this.apiResponse = JSON.stringify(data)))
+      apiGet('https://ck7f3w6408.execute-api.eu-west-1.amazonaws.com/IL/teams/nintendo/files')
+        .then(({ data }) => (
+          console.log(data),
+          // this.apiResponse = JSON.stringify(data)
+          this.tiles = data),
+          )
         .catch(
           () => (this.apiResponse = 'Failed to retrieve data from server.')
         )
@@ -73,6 +73,7 @@ export default {
   },
 }
 </script>
+
 
 <style scoped lang="css">
 .home {
