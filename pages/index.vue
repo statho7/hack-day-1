@@ -74,7 +74,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .home {
   width: 80%;
   margin: 0 auto;

@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="css">
 body {
   margin: 0px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
